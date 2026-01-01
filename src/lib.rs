@@ -6,6 +6,7 @@ pub static HEAP: embedded_alloc::LlffHeap = embedded_alloc::LlffHeap::empty();
 
 pub mod prelude {
     pub use pico_bevy_core::*;
+    pub use pico_bevy_uart::*;
 }
 
 pub use prelude::*;
