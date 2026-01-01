@@ -1,0 +1,21 @@
+[package]
+name = "pico-bevy-core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+embassy-rp = {workspace = true}
+rp-pac = "7.0.0"
+bevy = {workspace = true}
+defmt = {workspace = true, optional = true}
+paste = {version = "*", optional = true}
+
+[features]
+default = ["uart", "gpio", "spi", "i2c", "defmt", "watchdog", "rtc"]
+uart = ["gpio"]
+gpio = ["dep:paste"]
+spi = ["gpio"]
+i2c = ["gpio"]
+watchdog = []
+rtc = []
+defmt = ["dep:defmt", "embassy-rp/defmt"]
