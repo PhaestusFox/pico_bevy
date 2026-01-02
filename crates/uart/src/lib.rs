@@ -102,16 +102,18 @@ pub mod uart0 {
     }
 
     #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-    #[derive(Clone, Copy)]
+    #[derive(Clone, Copy, Default)]
     pub enum TxPins {
+        #[default]
         Gpio0 = 0,
         Gpio12 = 12,
         Gpio16 = 16,
     }
 
     #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-    #[derive(Clone, Copy)]
+    #[derive(Clone, Copy, Default)]
     pub enum RxPins {
+        #[default]
         Gpio1 = 1,
         Gpio13 = 13,
         Gpio17 = 17,

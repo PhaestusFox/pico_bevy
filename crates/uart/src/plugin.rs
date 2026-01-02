@@ -44,7 +44,10 @@ impl<I: UArtPeripheral> UArtPlugin<I> {
 
 impl Default for UArtPlugin<UART0> {
     fn default() -> Self {
-        Self::uart0(super::uart0::TxPins::Gpio0, super::uart0::RxPins::Gpio1)
+        Self::uart0(
+            super::uart0::TxPins::default(),
+            super::uart0::RxPins::default(),
+        )
     }
 }
 
