@@ -10,7 +10,7 @@ use embassy_rp::{
     uart::{RxPin, TxPin},
 };
 use pico_bevy_core::gpio::PicoPin;
-pub use plugin::{MakeUArtError, PicoUArtPlugin};
+pub use plugin::{MakeUArtError, UArtPlugin};
 
 pub type UArtError = embassy_rp::uart::Error;
 
@@ -91,9 +91,9 @@ pub trait UArtPeripheral: embassy_rp::uart::Instance + 'static {
 pub mod uart0 {
     use super::*;
     use pico_bevy_core::gpio::*;
-    impl PicoUArtPlugin<UART0> {
+    impl UArtPlugin<UART0> {
         pub fn uart0(tx: TxPins, rx: RxPins) -> Self {
-            PicoUArtPlugin {
+            UArtPlugin {
                 tx,
                 rx,
                 config: embassy_rp::uart::Config::default(),
@@ -156,9 +156,9 @@ pub mod uart1 {
     use pico_bevy_core::gpio::*;
 
     use super::*;
-    impl PicoUArtPlugin<UART1> {
+    impl UArtPlugin<UART1> {
         pub fn uart1(tx: TxPins, rx: RxPins) -> Self {
-            PicoUArtPlugin {
+            UArtPlugin {
                 tx,
                 rx,
                 config: embassy_rp::uart::Config::default(),

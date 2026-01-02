@@ -4,7 +4,7 @@ use embassy_rp::peripherals::UART0;
 
 use crate::UArtPeripheral;
 
-impl<P: UArtPeripheral + Send + Sync + 'static> Plugin for PicoUArtPlugin<P> {
+impl<P: UArtPeripheral + Send + Sync + 'static> Plugin for UArtPlugin<P> {
     fn build(&self, app: &mut bevy::app::App) {
         #[cfg(feature = "defmt")]
         defmt::info!(
@@ -29,20 +29,20 @@ impl<P: UArtPeripheral + Send + Sync + 'static> Plugin for PicoUArtPlugin<P> {
     }
 }
 
-pub struct PicoUArtPlugin<I: UArtPeripheral> {
+pub struct UArtPlugin<I: UArtPeripheral> {
     pub(crate) tx: I::TxPins,
     pub(crate) rx: I::RxPins,
     pub(crate) config: embassy_rp::uart::Config,
 }
 
-impl<I: UArtPeripheral> PicoUArtPlugin<I> {
+impl<I: UArtPeripheral> UArtPlugin<I> {
     pub fn with_config(mut self, config: embassy_rp::uart::Config) -> Self {
         self.config = config;
         self
     }
 }
 
-impl Default for PicoUArtPlugin<UART0> {
+impl Default for UArtPlugin<UART0> {
     fn default() -> Self {
         Self::uart0(super::uart0::TxPins::Gpio0, super::uart0::RxPins::Gpio1)
     }
