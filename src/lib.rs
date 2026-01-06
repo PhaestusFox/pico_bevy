@@ -6,6 +6,14 @@ pub static HEAP: embedded_alloc::LlffHeap = embedded_alloc::LlffHeap::empty();
 
 pub mod prelude {
     pub use pico_bevy_core::*;
+    #[cfg(feature = "i2c")]
+    pub use pico_bevy_i2c as i2c;
+    #[cfg(feature = "i2c")]
+    pub use pico_bevy_i2c::*;
+
+    #[cfg(feature = "uart")]
+    pub use pico_bevy_uart as uart;
+    #[cfg(feature = "uart")]
     pub use pico_bevy_uart::*;
 }
 
