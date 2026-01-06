@@ -1,8 +1,5 @@
-use core::marker::PhantomData;
-
-use bevy::ecs::component::Component;
 use bevy::ecs::resource::Resource;
-use embassy_rp::peripherals::{I2C0, I2C1};
+use pico_bevy_core::UseBus;
 
 use super::*;
 
@@ -15,21 +12,6 @@ pub struct I2CBus<P: I2CPeripheral> {
 impl<P: I2CPeripheral> I2CBus<P> {
     pub fn new(bus: embassy_rp::i2c::I2c<'static, P, embassy_rp::i2c::Blocking>) -> Self {
         I2CBus { bus }
-    }
-}
-
-#[derive(Component)]
-pub struct UseBus<P: I2CPeripheral>(PhantomData<P>);
-
-impl UseBus<I2C0> {
-    pub fn i2c0() -> Self {
-        UseBus(PhantomData)
-    }
-}
-
-impl UseBus<I2C1> {
-    pub fn i2c1() -> Self {
-        UseBus(PhantomData)
     }
 }
 
@@ -60,3 +42,14 @@ impl<P: I2CPeripheral> embedded_hal::i2c::I2c for I2CBus<P> {
         self.bus.blocking_write_read(address, bytes, buffer)
     }
 }
+
+pub trait UseI2CBus {
+    fn i2c0() -> pico_bevy_core::UseBus<embassy_rp::peripherals::I2C0> {
+        pico_bevy_core::UseBus::new()
+    }
+    fn i2c1() -> pico_bevy_core::UseBus<embassy_rp::peripherals::I2C1> {
+        pico_bevy_core::UseBus::new()
+    }
+}
+
+impl UseI2CBus for UseBus<()> {}

@@ -9,7 +9,7 @@ use embassy_rp::{
     peripherals::UART0,
     uart::{RxPin, TxPin},
 };
-use pico_bevy_core::gpio::PicoPin;
+use pico_bevy_core::{UseBus, gpio::PicoPin};
 pub use plugin::{MakeUArtError, UArtPlugin};
 
 pub type UArtError = embassy_rp::uart::Error;
@@ -210,3 +210,14 @@ impl<P: UArtPeripheral> UArtBus<P> {
         self.blocking_read(buffer)
     }
 }
+
+pub trait UseUArtBus {
+    fn uart0() -> pico_bevy_core::UseBus<embassy_rp::peripherals::UART0> {
+        pico_bevy_core::UseBus::new()
+    }
+    fn uart1() -> pico_bevy_core::UseBus<embassy_rp::peripherals::UART1> {
+        pico_bevy_core::UseBus::new()
+    }
+}
+
+impl UseUArtBus for UseBus<()> {}

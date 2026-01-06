@@ -12,7 +12,7 @@ pub use plugin::{I2CPlugin, MakeI2CError};
 pub type I2CError = embassy_rp::i2c::Error;
 
 pub use address::I2CAddress;
-pub use bus::{I2CBus, UseBus};
+pub use bus::{I2CBus, UseI2CBus};
 
 mod address;
 mod bus;

@@ -98,3 +98,14 @@ pub mod gpio;
 
 #[cfg(feature = "gpio")]
 pub use gpio::*;
+
+#[derive(bevy::prelude::Component)]
+pub struct UseBus<P>(core::marker::PhantomData<P>);
+
+impl<P> UseBus<P> {
+    // Have new but no default so its explicit to call and dont get accidental behavior for impl Default
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self(core::marker::PhantomData)
+    }
+}
